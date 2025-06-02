@@ -1,8 +1,8 @@
 import psycopg2
-from config.connection import connection
+from ..config.connect import connect
 
 def insert_user(name, surname, email, description, course, year, direction, CP, Password):
-    conn = connection()
+    conn = connect()
     cursor = conn.cursor()
     try:
         cursor.execute('''INSERT INTO "user"."user"(
@@ -11,5 +11,7 @@ def insert_user(name, surname, email, description, course, year, direction, CP, 
         
         
         print("inserted correctly")
+        return True
     except(Exception, psycopg2.Error) as error:
         print("Error: ", error)
+        return False
